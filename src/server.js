@@ -50,7 +50,7 @@ app.post('/api/tasks', (req, res) => {
     httpRequestsTotal.inc({ method: 'POST', route: '/api/tasks', status_code: 201 });
     res.status(201).json(newTask);
 });
-
+/* istanbul ignore next */
 if (require.main === module) {
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
