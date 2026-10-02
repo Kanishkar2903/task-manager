@@ -1,0 +1,24 @@
+services:
+  staging:
+    image: ${IMAGE:-task-manager:latest}
+    container_name: task-manager-staging
+    ports:
+      - "5001:5000"
+    restart: unless-stopped
+
+  production:
+    image: ${IMAGE:-task-manager:latest}
+    container_name: task-manager-prod
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: task-manager-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/alert_rules.yml:/etc/prometheus/alert_rules.yml
+    restart: unless-stopped
